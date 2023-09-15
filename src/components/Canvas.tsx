@@ -400,9 +400,48 @@ const Canvas = ({
     (segmentTypes === "All" && isLoading) ||
     (isLoading && !hasClicked && !isModelLoaded.boxModel) ||
     (isLoading && isErasing);
+  
+  const captureDiv = () => {
+    const svgElement = document.getElementById('svgtotalmask');
+    console.log(svgElement)
+    
+    if (svgElement!=null) {
+      const pathElement = svgElement.querySelector('#mask-path');
+      if (pathElement) {
+        // 更改 path 元素的 fill-opacity 属性值为不透明，黑色
+        pathElement.setAttribute('fill-opacity', '1'); // 将 fill-opacity 设置为 0.5（半透明）
+      }
+      const svgString = new XMLSerializer().serializeToString(svgElement)
+      
+      // 使用 btoa 函数将 SVG 字符串编码为 Base64
+      const base64String = btoa(svgString);
+      
+      // 输出 Base64 字符串
+      const svgBase64 = "data:image/svg+xml;base64," + base64String
+      const img = new window.Image();
 
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+    
+        // 将 SVG 图像绘制到 Canvas 上
+        ctx!.drawImage(img, 0, 0);
+    
+        // 转换为 PNG Base64
+        const pngBase64 = canvas.toDataURL('image/png');
+        window.parent.postMessage(pngBase64, '*');
+      };
+      // 设置 Image 对象的 src 属性，加载 SVG Base64 图像
+      img.src = svgBase64;
+
+    }
+  };
+    
   return (
     <>
+    <button onClick={captureDiv}>Capture</button>
       {shouldShowSpinner && (
         <div
           className={`absolute z-10 flex items-center justify-center w-full h-full md:hidden`}

@@ -49,6 +49,8 @@ const SvgMask = ({
   const bbWidthRatio = bbWidth && bbWidth / xScale;
   return (
     <svg
+    id='svgtotalmask'
+
       className={`absolute w-full h-full pointer-events-none ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${xScale} ${yScale}`}
@@ -91,12 +93,12 @@ const SvgMask = ({
         <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#1d85bb" />
         <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#1d85bb" />
       </filter>
-      <image
+      {/* <image
         width="100%"
         height="100%"
         xlinkHref={image?.src}
         clipPath={`url(#clip-path${id})`}
-      />
+      /> */}
       {!click && (!isLoading || isErasing) && (
         <>
           {!isMultiMaskMode && bbWidthRatio && (

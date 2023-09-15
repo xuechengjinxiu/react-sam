@@ -55,9 +55,7 @@ const ToolTip = ({
         return "Select any object, SAM is running in the browser.";
       }
       if (hasClicked && clicks?.length)
-        return "Cut out the selected object, or try multi-mask mode.";
-      if (isHoverToolTip)
-        return "When hovering over the image, SAM is running in the browser.";
+        return "Cut out the selected object";
     }
     if (segmentTypes === "Box") {
       if (annotations.length) return "Refine by adding or subtracting points.";
