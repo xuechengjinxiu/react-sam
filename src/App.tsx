@@ -375,9 +375,20 @@ const App = () => {
       shouldNotFetchAllModel: false,
     });
   };
+  // 接收来自Vue父页面的消息
+  window.addEventListener('message', (event) => {
+    console.log(event.origin)
+    const message = event.data;
+    // 处理消息
+    if (message.includes('data:image')) {
+      handleSelectedImage(message, {
+        shouldNotFetchAllModel: true,
+      })
+    }
+  });
 
   const handleSelectedImage = async (
-    data: File | URL,
+    data: File | URL | string,
     options?: { shouldNotFetchAllModel?: boolean; shouldDownload?: boolean }
   ) => {
 
@@ -403,10 +414,15 @@ const App = () => {
         data = new URL(data.replace('/assets/', '/public/assets/'));
         imgName = data.pathname;
       }
-      imgName = imgName.substring(imgName.lastIndexOf("/") + 1);
-      const imgData: File = data instanceof File ? data : await getFile(data);
       const img = new Image();
-      img.src = URL.createObjectURL(imgData);
+      if (typeof data === 'string') {
+        imgName = Date.now().toString();
+        img.src = data
+      } else {
+        imgName = imgName.substring(imgName.lastIndexOf("/") + 1);
+        const imgData: File = data instanceof File ? data : await getFile(data);
+        img.src = URL.createObjectURL(imgData);
+      }
       img.onload = () => {
         setIsToolBarUpload(false);
         const { height, width, scale, uploadScale } = handleImageScale(img);
