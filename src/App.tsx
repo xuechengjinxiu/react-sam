@@ -378,12 +378,14 @@ const App = () => {
   // 接收来自Vue父页面的消息
   window.addEventListener('message', (event) => {
     console.log(event.origin)
-    const message = event.data;
+    var message = event.data;
     // 处理消息
-    if (message.includes('data:image')) {
-      handleSelectedImage(message, {
-        shouldNotFetchAllModel: true,
-      })
+    if(typeof message === 'string') {
+      if (message?.includes('data:image')) {
+        handleSelectedImage(message, {
+          shouldNotFetchAllModel: true,
+        })
+      }
     }
   });
 
@@ -416,7 +418,6 @@ const App = () => {
       }
       const img = new Image();
       if (typeof data === 'string') {
-        imgName = Date.now().toString();
         img.src = data
       } else {
         imgName = imgName.substring(imgName.lastIndexOf("/") + 1);
@@ -463,7 +464,7 @@ const App = () => {
   // }, [image]);
 
   const handleSegModelResults = ({ tensor }: { tensor: Tensor }) => {
-    // console.log("handleSegModelResults");
+    console.log("handleSegModelResults");
     setTensor(tensor);
     setIsLoading(false);
     setIsErasing(false);

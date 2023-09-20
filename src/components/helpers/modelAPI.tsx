@@ -63,7 +63,7 @@ const queryModelReturnTensors = async ({
   shouldNotFetchAllModel,
 }: queryModelReturnTensorsProps) => {
 
-  // console.log("image_height, imgName, shouldDownload, shouldNotFetchAllModel:", image_height, imgName, shouldDownload, shouldNotFetchAllModel)
+  console.log("image_height, imgName, shouldDownload, shouldNotFetchAllModel:", image_height, imgName, shouldDownload, shouldNotFetchAllModel)
   // console.log("pre-queryModelReturnTensors");
   if (!API_ENDPOINT) return;
   if (!ALL_MASK_API_ENDPOINT) return;
@@ -76,6 +76,7 @@ const queryModelReturnTensors = async ({
           body: blob,
         });
   segRequest.then(async (segResponse) => {
+    console.log(segResponse)
     if (shouldDownload) {
       const segResponseClone = segResponse.clone();
       const segResponseBlob = await segResponseClone.blob();
@@ -98,6 +99,7 @@ const queryModelReturnTensors = async ({
   });
   if (!shouldNotFetchAllModel) {
     const allImgName = imgName + ".all";
+    console.log(allImgName)
     const allRequest =
       imgName && !shouldDownload
         ? fetch(`/assets/gallery/${allImgName}.txt`)
