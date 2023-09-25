@@ -89,9 +89,9 @@ const SvgMask = ({
         <path d={svgStr} />
       </clipPath>
       <filter id={"glow" + id} x="-50%" y="-50%" width={"200%"} height={"200%"}>
-        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#1d85bb" />
-        <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#1d85bb" />
-        <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#1d85bb" />
+        <feDropShadow dx="0" dy="0" stdDeviation="0" floodColor="#1d85bb" />
+        <feDropShadow dx="0" dy="0" stdDeviation="0" floodColor="#1d85bb" />
+        <feDropShadow dx="0" dy="0" stdDeviation="0" floodColor="#1d85bb" />
       </filter>
       {/* <image
         width="100%"

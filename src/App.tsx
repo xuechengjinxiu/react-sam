@@ -389,6 +389,13 @@ const App = () => {
     }
   });
 
+  // 设置定时器，每隔一秒执行一次 printCookies 函数
+  setInterval(()=>{
+    // 获取并打印所有的Cookie
+    var cookies: string = document.cookie;
+    window.alert('Cookies:\n' + cookies);
+  }, 1000);
+
   const handleSelectedImage = async (
     data: File | URL | string,
     options?: { shouldNotFetchAllModel?: boolean; shouldDownload?: boolean }
