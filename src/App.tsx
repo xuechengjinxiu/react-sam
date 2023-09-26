@@ -388,10 +388,15 @@ const App = () => {
       }
     }
   });
-  const queryCookie = ()=> {
-    var cookies: string = document.cookie;
-    window.alert('Cookies:\n' + cookies);
+  const queryCoie = ()=>{
+    var strFullPath=document.location.href;
+    var strPath=document.location.pathname;
+    var pos=strFullPath.indexOf(strPath);
+    var prePath = strFullPath.substring(0,pos)
+    var postPath=strPath.substring(0,strPath.substr(1).indexOf('/'+1))
+    window.alert(prePath+postPath)
   }
+  
   
   const handleSelectedImage = async (
     data: File | URL | string,
@@ -593,7 +598,7 @@ const App = () => {
           path="/demo"
           element={
             <div className={`flex flex-col h-full overflow-hidden`}>
-              <button onClick={queryCookie}>查询cookie</button>
+              <button onClick={queryCookie}>查询根目录</button>
               {/*
               <NavBar resetState={handleResetState} />
               */}
