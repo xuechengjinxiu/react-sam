@@ -388,7 +388,7 @@ const App = () => {
       }
     }
   });
-  const queryCoie = ()=>{
+  const queryCookie = ()=>{
     var strFullPath=document.location.href;
     var strPath=document.location.pathname;
     var pos=strFullPath.indexOf(strPath);
