@@ -39,6 +39,7 @@
     "react-swipeable": "^7.0.0",
     "sass": "^1.61.0",
     "scheduler": "^0.23.0",
+    "socket.io-client": "^4.7.2",
     "style-loader": "^3.3.2",
     "swipeable": "^1.0.5",
     "tslib": "^2.5.0",

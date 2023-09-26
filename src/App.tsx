@@ -28,6 +28,7 @@ import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
 import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
+import io from 'socket.io-client';
 // import CookieText from "./CookieText";
 
 // console.log("hi")
@@ -134,6 +135,28 @@ const App = () => {
       }
     };
     initModel();
+     // 连接到 C++ WebSocket 服务器
+     const socket = io('http://localhost:8888'); // 替换为服务器地址和端口
+
+     socket.on('connect', () => {
+       window.alert('Connected to C++ server');
+ 
+       // 发送消息给服务器
+       socket.emit('message', 'Hello from React client!');
+     });
+ 
+     socket.on('message', (message: string) => {
+       console.log('Received message from C++ server:', message);
+     });
+ 
+     socket.on('disconnect', () => {
+       console.log('Disconnected from C++ server');
+     });
+
+     return () => {
+      socket.disconnect();
+    };
+ 
   }, []);
 
   const runMultiMaskModel = async () => {
@@ -388,15 +411,6 @@ const App = () => {
       }
     }
   });
-  const queryCookie = ()=>{
-    var strFullPath=document.location.href;
-    var strPath=document.location.pathname;
-    var pos=strFullPath.indexOf(strPath);
-    var prePath = strFullPath.substring(0,pos)
-    var postPath=strPath.substring(0,strPath.substr(1).indexOf('/'+1))
-    window.alert(prePath+postPath)
-  }
-  
   
   const handleSelectedImage = async (
     data: File | URL | string,
@@ -598,7 +612,6 @@ const App = () => {
           path="/demo"
           element={
             <div className={`flex flex-col h-full overflow-hidden`}>
-              <button onClick={queryCookie}>查询根目录</button>
               {/*
               <NavBar resetState={handleResetState} />
               */}
