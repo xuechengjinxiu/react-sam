@@ -135,28 +135,26 @@ const App = () => {
       }
     };
     initModel();
-     // 连接到 C++ WebSocket 服务器
-     const socket = io('http://localhost:8888'); // 替换为服务器地址和端口
-
-     socket.on('connect', () => {
-       window.alert('Connected to C++ server');
- 
-       // 发送消息给服务器
-       socket.emit('message', 'Hello from React client!');
-     });
- 
-     socket.on('message', (message: string) => {
-       console.log('Received message from C++ server:', message);
-     });
- 
-     socket.on('disconnect', () => {
-       console.log('Disconnected from C++ server');
-     });
-
-     return () => {
-      socket.disconnect();
+    const fetchData = async () => {
+      try {
+        // 发起HTTP请求来获取数据
+        const response = await fetch('http://localhost:8888'); // 替换为您的接口地址
+        if (!response.ok) {
+          throw new Error('HTTP request failed');
+        }
+        const result = await response.json();
+        console.log(result)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
- 
+    const pollingInterval = setInterval(fetchData, 2000); // 5000毫秒（5秒）一次轮询
+    // 初始化时立即执行一次轮询
+    fetchData();
+    // 当组件卸载时，清除轮询
+    return () => {
+      clearInterval(pollingInterval);
+    };
   }, []);
 
   const runMultiMaskModel = async () => {
