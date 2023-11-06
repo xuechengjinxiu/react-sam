@@ -28,7 +28,7 @@ import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
 import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 // import CookieText from "./CookieText";
 
 // console.log("hi")
@@ -135,26 +135,26 @@ const App = () => {
       }
     };
     initModel();
-    const fetchData = async () => {
-      try {
-        // 发起HTTP请求来获取数据
-        const response = await fetch('http://localhost:8888'); // 替换为您的接口地址
-        if (!response.ok) {
-          throw new Error('HTTP request failed');
-        }
-        const result = await response.json();
-        console.log(result)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    const pollingInterval = setInterval(fetchData, 2000); // 5000毫秒（5秒）一次轮询
-    // 初始化时立即执行一次轮询
-    fetchData();
-    // 当组件卸载时，清除轮询
-    return () => {
-      clearInterval(pollingInterval);
-    };
+    // const fetchData = async () => {
+    //   try {
+    //     // 发起HTTP请求来获取数据
+    //     const response = await fetch('http://localhost:8888'); // 替换为您的接口地址
+    //     if (!response.ok) {
+    //       throw new Error('HTTP request failed');
+    //     }
+    //     const result = await response.json();
+    //     console.log(result)
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
+    // const pollingInterval = setInterval(fetchData, 2000); // 5000毫秒（5秒）一次轮询
+    // // 初始化时立即执行一次轮询
+    // fetchData();
+    // // 当组件卸载时，清除轮询
+    // return () => {
+    //   clearInterval(pollingInterval);
+    // };
   }, []);
 
   const runMultiMaskModel = async () => {
